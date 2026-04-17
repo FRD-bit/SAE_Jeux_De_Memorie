@@ -1,4 +1,7 @@
-# SAE_S2.01
-ELBEHIRY Farid 112
-LAHCHENE Adam 112
-DUBOIS THEVENOT Bastien 112
+# SAE S2.01 — Projet  
+## Groupe 112
+
+### Membres
+- **ELBEHIRY Farid**
+- **LAHCHENE Adam**
+- **DUBOIS THEVENOT Bastien**
