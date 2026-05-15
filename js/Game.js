@@ -29,42 +29,36 @@ export class Game {
         this.lancerTimer(60);
         this.#rem = diff;
 
-        let carte1 = null;
-        let carte2 = null;
-        let verrouillage = false;
+        let KYS = null;
+        let SYBAU = null;
+        let locked = false;
 
         const cards = document.querySelectorAll('.card');
 
         for (const card of cards) {
             card.addEventListener("click", () => {
-                if (verrouillage || card.classList.contains('flip')) return;
-
+                if (locked || card.classList.contains('flip')) return;
                 if (this.#tempsRestant <= 0) {
                     return;
                 }
-
                 card.classList.add('flip');
-
-                if (!carte1) {
-                    carte1 = card;
+                if (!KYS) {
+                    KYS = card;
                 } else {
-                    carte2 = card;
-                    verrouillage = true;
-
-                    const id1 = carte1.firstElementChild.getAttribute('data-id');
-                    const id2 = carte2.firstElementChild.getAttribute('data-id');
-
+                    SYBAU = card;
+                    locked = true;
+                    const id1 = KYS.firstElementChild.getAttribute('data-id');
+                    const id2 = SYBAU.firstElementChild.getAttribute('data-id');
                     if (id1 === id2) {
-                        carte1 = null;
-                        carte2 = null;
-                        verrouillage = false;
+                        KYS = null;
+                        SYBAU = null;
+                        locked = false;
                         this.#rem -= 1;
 
                         if (this.#rem === 0) {
                             this.stopTimer();
                             this.endGame();
-
-                            // LA CORRECTION EST ICI : On attend 500ms avant d'afficher l'alerte
+                            // end the game
                             setTimeout(() => {
                                 alert("YOU WIN");
                                 setTimeout(() => location.reload(), 1000);
@@ -72,11 +66,11 @@ export class Game {
                         }
                     } else {
                         setTimeout(() => {
-                            carte1.classList.remove('flip');
-                            carte2.classList.remove('flip');
-                            carte1 = null;
-                            carte2 = null;
-                            verrouillage = false;
+                            KYS.classList.remove('flip');
+                            SYBAU.classList.remove('flip');
+                            KYS = null;
+                            SYBAU = null;
+                            locked = false;
                         }, 1000);
                     }
                 }
@@ -87,21 +81,16 @@ export class Game {
     lancerTimer(depart) {
         this.#tempsRestant = depart;
         const affichage = document.querySelector('.game-timer');
-
         this.stopTimer();
-
         this.#timerId = setInterval(() => {
             this.#tempsRestant -= 1;
-
             if(affichage) {
                 affichage.textContent = this.#tempsRestant;
             }
-
             if (this.#tempsRestant <= 0) {
                 this.stopTimer();
                 this.endGame();
-
-                // On met aussi un petit délai ici par précaution
+                // end the game
                 setTimeout(() => {
                     alert("GAME END");
                     setTimeout(() => location.reload(), 1000);
