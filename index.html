@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jeu de Memory</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+  <script src="js/app.js" type="module"></script>
+</head>
+<body>
+<header><h1>Jeu de Memory</h1></header>
+<audio id="audio" preload autoplay loop>
+  <source src="assets/sound/val_loop.mp3" type="audio/mpeg">
+</audio>
+<div class="setup-form">
+  <form class="game-form">
+  <label for="name">Enter your name, Player: <input type="text" id="name" name="name" value="Player"></label><br>
+  <label for="difficulty">Choose a difficulty:</label>
+  <select name="difficulty" id="difficulty">
+    <option value="4">1</option>
+    <option value="5">2</option>
+    <option value="6">3</option>
+    <option value="8">focus...?</option>
+  </select>
+  <br>
+  <label for="col">Choose a collection:</label>
+  <select name="col" id="col">
+    <option value="animals">animals</option>
+    <option value="cars">cars</option>
+    <option value="fruits">fruits</option>
+    <option value="custom">custom</option>
+  </select>
+  <br>
+    <label for="mus">music on?</label>
+    <select name="mus" id="mus">
+      <option value="yes">yes</option>
+      <option value="no">no</option>
+    </select>
+    <br>
+    <label for="bac">style</label>
+    <select name="bac" id="bac">
+      <option value="yes">custom</option>
+      <option value="no">not custom</option>
+    </select>
+  <input type="submit" value="Start?">
+  </form>
+</div>
+
+<div class="game-area hidden">
+  <div class="game-area-header"></div>
+  <div class="game-board"></div>
+</div>
+</body>
+</html>
