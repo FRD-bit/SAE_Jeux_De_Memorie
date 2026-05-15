@@ -1,8 +1,13 @@
 /**
  * @type {ImagesCollection} imageCollections
  */
-
+/**
+ * Objet contenant toutes les collections d'images disponibles pour le jeu.
+ * Chaque clé correspond à un thème choisi par le joueur (animaux, fruits, voitures, custom).
+ * Chaque tableau contient jusqu'à 8 objets représentant les cartes uniques.
+ */
 export const imageCollections = {
+    // Thème 1 : Collection classique avec des animaux
     animals: [
         {id: 1, name: "animal1", url: "./assets/images/animals/animal1.png"},
         {id: 2, name: "animal2", url: "./assets/images/animals/animal2.png"},
@@ -12,8 +17,9 @@ export const imageCollections = {
         {id: 6, name: "animal6", url: "./assets/images/animals/animal6.png"},
         {id: 7, name: "animal7", url: "./assets/images/animals/animal7.png"},
         {id: 8, name: "animal8", url: "./assets/images/animals/animal8.png"},
-
     ],
+
+    // Thème 2 : Collection avec des fruits
     fruits: [
         {id: 1, name: "fruit1", url: "./assets/images/fruits/fruit1.png"},
         {id: 2, name: "fruit2", url: "./assets/images/fruits/fruit2.png"},
@@ -23,8 +29,9 @@ export const imageCollections = {
         {id: 6, name: "fruit6", url: "./assets/images/fruits/fruit6.png"},
         {id: 7, name: "fruit7", url: "./assets/images/fruits/fruit7.png"},
         {id: 8, name: "fruit8", url: "./assets/images/fruits/fruit8.png"},
-
     ],
+
+    // Thème 3 : Collection avec des voitures
     cars: [
         {id: 1, name: "car1", url: "./assets/images/cars/car1.png"},
         {id: 2, name: "car2", url: "./assets/images/cars/car2.png"},
@@ -34,9 +41,10 @@ export const imageCollections = {
         {id: 6, name: "car6", url: "./assets/images/cars/car6.png"},
         {id: 7, name: "car7", url: "./assets/images/cars/car7.png"},
         {id: 8, name: "car8", url: "./assets/images/cars/car8.png"},
-
     ],
-    // custom cards
+
+    // Thème 4 : Collection personnalisée (Bonus)
+    // Ajouté pour offrir une touche d'humour et d'originalité au projet
     custom: [
         {id: 1, name: "blue", url: "./assets/images/custom/blue.webp"},
         {id: 2, name: "ev", url: "./assets/images/custom/evil_angle.png"},
@@ -46,6 +54,5 @@ export const imageCollections = {
         {id: 6, name: "orb", url: "./assets/images/custom/orb.png"},
         {id: 7, name: "red1", url: "./assets/images/custom/red1.png"},
         {id: 8, name: "red2", url: "./assets/images/custom/red2.webp"},
-
     ],
 };
