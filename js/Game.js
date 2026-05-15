@@ -83,7 +83,7 @@ export class Game {
             });
         }
     }
-
+// read the title of the function pls
     lancerTimer(depart) {
         this.#tempsRestant = depart;
         const affichage = document.querySelector('.game-timer');
@@ -109,7 +109,7 @@ export class Game {
             }
         }, 1000);
     }
-
+    // i'm not gonna make the same joke 3 time in a row
     stopTimer() {
         clearInterval(this.#timerId);
     }
