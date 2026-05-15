@@ -18,7 +18,7 @@ export class Game {
             alert(error.message || 'Erreur lors de la fin de la partie');
         }
     }
-
+//
     /**
      * Start a new game.
      * @param {number} id - The game ID.
