@@ -1,117 +1,116 @@
-import {imageCollections} from './ImageCollection.js';
 import {ApiService} from './ApiService.js';
 
-
 export class Game {
-  /**
-   * @type {number} id identifiant de la partie en cours
-   */
-  #id;
-  #tempsRestant = null;
-  #timerId;
-  #rem = 0;
+    /**
+     * @type {number} id identifiant de la partie en cours
+     */
+    #id;
+    #tempsRestant = null;
+    #timerId;
+    #rem = 0;
 
-  async endGame() {
-    const idARemplacer = this.#id;
-    const nombreDePairesRestanteARemplacer = this.#rem;
-
-    try {
-      const result = await ApiService.updateGameResult(idARemplacer, nombreDePairesRestanteARemplacer);
-      console.log('Fin de partie:', result);
-    } catch (error) {
-      console.error('Error:', error);
-      alert(error.message || 'Erreur lors de la fin de la partie');
+    async endGame() {
+        try {
+            const result = await ApiService.updateGameResult(this.#id, this.#rem);
+            console.log('Fin de partie:', result);
+        } catch (error) {
+            console.error('Error:', error);
+            alert(error.message || 'Erreur lors de la fin de la partie');
+        }
     }
 
-  }
+    /**
+     * Start a new game.
+     * @param {number} id - The game ID.
+     * @param {number} diff - current difficulty
+     */
+    startGame(id, diff) {
+        this.#id = id;
+        this.lancerTimer(60);
+        this.#rem = diff;
 
-  /**
-   * Start a new game.
-   * @param {number} id - The game ID.
-   * @param {number} diff - current difficulty
-   */
-  startGame(id, diff) {
-    // init the variable
-    this.#id = id;
-    this.lancerTimer(60);
-    let KYS = 0;
-    let SYBAU = 0;
-    let C1;
-    let C2;
-    this.#rem = diff;
-    const cards = document.querySelectorAll('.card');
-    // loop for the game (and the reason i need to reload the game at the end)
-      for (const card of cards) {
-        card.addEventListener("click", () => {
-          // retrieve the selected card id and its html position
-          if (KYS !== 0 && SYBAU === 0) {
-            C2 = card;
-            SYBAU = card.firstElementChild.getAttribute('data-id');
-          }
-          if (KYS === 0) {
-            C1 = card;
-            KYS = card.firstElementChild.getAttribute('data-id');
-          }
-          // stop the game if you run out of time
-          if (this.#tempsRestant <= 0) {
-            this.endGame();
-            alert("GAME END");
-            setTimeout(AA, 1000);
+        let carte1 = null;
+        let carte2 = null;
+        let verrouillage = false;
 
-            function AA() {
-              location.reload();
+        const cards = document.querySelectorAll('.card');
+
+        for (const card of cards) {
+            card.addEventListener("click", () => {
+                if (verrouillage || card.classList.contains('flip')) return;
+
+                if (this.#tempsRestant <= 0) {
+                    return;
+                }
+
+                card.classList.add('flip');
+
+                if (!carte1) {
+                    carte1 = card;
+                } else {
+                    carte2 = card;
+                    verrouillage = true;
+
+                    const id1 = carte1.firstElementChild.getAttribute('data-id');
+                    const id2 = carte2.firstElementChild.getAttribute('data-id');
+
+                    if (id1 === id2) {
+                        carte1 = null;
+                        carte2 = null;
+                        verrouillage = false;
+                        this.#rem -= 1;
+
+                        if (this.#rem === 0) {
+                            this.stopTimer();
+                            this.endGame();
+
+                            // LA CORRECTION EST ICI : On attend 500ms avant d'afficher l'alerte
+                            setTimeout(() => {
+                                alert("YOU WIN");
+                                setTimeout(() => location.reload(), 1000);
+                            }, 500);
+                        }
+                    } else {
+                        setTimeout(() => {
+                            carte1.classList.remove('flip');
+                            carte2.classList.remove('flip');
+                            carte1 = null;
+                            carte2 = null;
+                            verrouillage = false;
+                        }, 1000);
+                    }
+                }
+            });
+        }
+    }
+
+    lancerTimer(depart) {
+        this.#tempsRestant = depart;
+        const affichage = document.querySelector('.game-timer');
+
+        this.stopTimer();
+
+        this.#timerId = setInterval(() => {
+            this.#tempsRestant -= 1;
+
+            if(affichage) {
+                affichage.textContent = this.#tempsRestant;
             }
-            return
-          }
-          card.classList.add('flip');
-          // check if the pair have the same id
-          if (KYS === SYBAU) {
-            KYS = 0;
-            SYBAU = 0;
-            this.#rem -= 1;
-            // end the game if every pair have been found
-            if (this.#rem === 0) {
-              this.endGame();
-              alert("YOU WIN");
-              setTimeout(AAA, 1000);
 
-              function AAA() {
-                location.reload();
-              }
-              return
+            if (this.#tempsRestant <= 0) {
+                this.stopTimer();
+                this.endGame();
+
+                // On met aussi un petit délai ici par précaution
+                setTimeout(() => {
+                    alert("GAME END");
+                    setTimeout(() => location.reload(), 1000);
+                }, 100);
             }
-          } else if (SYBAU !== 0) {
-            setTimeout(EE, 1000);
+        }, 1000);
+    }
 
-            function EE() {
-              C1.classList.remove('flip');
-              C2.classList.remove('flip');
-              KYS = 0;
-              SYBAU = 0;
-            }
-          }
-
-        })
-      }
-
-}
-  // read the title of the function pls
-  lancerTimer(depart) {
-    this.#tempsRestant = depart;
-    const affichage = document.querySelector('.game-timer');
-
-
-    clearInterval(this.#timerId);
-
-    this.#timerId = setInterval(() => {
-      this.#tempsRestant -= 1;
-      affichage.textContent = this.#tempsRestant;
-
-      if (this.#tempsRestant <= 0) this.stopTimer();
-    }, 1000);
-  }
-  // i'm not gonna make the same joke 3 time in a row
-  stopTimer(){
-    clearInterval(this.#timerId);
-  }
+    stopTimer() {
+        clearInterval(this.#timerId);
+    }
 }
