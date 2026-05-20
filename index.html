@@ -43,13 +43,51 @@
       <option value="yes">custom</option>
       <option value="no">not custom</option>
     </select>
-  <input type="submit" value="Start?">
+    <br>
+    <label for="mode">Choose a game mode:</label>
+    <select name="mode" id="mode">
+      <option value="chrono">Chrono (compte à rebours)</option>
+      <option value="zen">Entraînement (chronomètre)</option>
+    </select>
+    <br>
+    <label for="flash">Aperçu Flash (3s au début) ?</label>
+    <select name="flash" id="flash">
+      <option value="yes">Oui</option>
+      <option value="no">Non</option>
+    </select>
+    <br>
+    <button type="submit">Start?</button>
   </form>
 </div>
 
 <div class="game-area hidden">
-  <div class="game-area-header"></div>
+  <div class="game-area-header">
+    <button id="abandon" type="button">Abandonner la partie</button>
+    <button id="mute-btn" type="button">🔊</button>
+    <div class="game-timer">60s</div>
+  </div>
   <div class="game-board"></div>
+</div>
+
+<div class="leaderboard-section">
+  <h2>🏆 Meilleurs Scores</h2>
+  <table class="leaderboard-table">
+    <thead>
+      <tr>
+        <th>Rang</th>
+        <th>Joueur</th>
+        <th>Difficulté</th>
+        <th>Mode</th>
+        <th>Temps</th>
+        <th>Statut</th>
+      </tr>
+    </thead>
+    <tbody id="leaderboard-body">
+      <tr>
+        <td colspan="6">Aucune partie enregistrée</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 </body>
 </html>
