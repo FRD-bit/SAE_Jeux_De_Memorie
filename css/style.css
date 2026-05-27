@@ -1,335 +1,371 @@
 /* ── Variables de couleurs ── */
 :root {
-  /* Arrière-plans */
-  --color-bg-page: oklch(0.208 0.04 265.755);
-  --color-bg-panel: oklch(0.279 0.037 260.031);
-  --color-bg-input: oklch(0.551 0.023 264.364);
-  --color-bg-card-front: oklch(0.372 0.039 257.287);
-  --color-bg-card-back: oklch(1 0 89.876);
-
-  /* Bordures */
-  --color-border-input: oklch(0.551 0.023 264.364);
-  --color-border-input-focus: oklch(0.872 0.009 258.338);
-  --color-border-card: oklch(0.446 0.037 257.281);
-
-  /* Textes */
-  --color-text-title: oklch(0.696 0.149 162.48);
-  --color-text-heading: oklch(0.929 0.013 255.508);
-  --color-text-label: oklch(0.869 0.02 252.894);
-  --color-text-input: oklch(0.869 0.02 252.894);
-  --color-text-white: oklch(1 0 89.876);
-
-  /* Bouton principal (démarrer) */
-  --color-btn-primary: oklch(0.508 0.105 165.612);
-  --color-btn-primary-hover: oklch(0.596 0.127 163.225);
-
-  /* Bouton danger (abandonner) */
-  --color-btn-danger: oklch(0.577 0.215 27.325);
-  --color-btn-danger-hover: oklch(0.505 0.19 27.518);
-
-  /* Chronomètre */
-  --color-timer: oklch(0.773 0.153 163.223);
+    --color-bg-page: oklch(0.208 0.04 265.755);
+    --color-bg-panel: oklch(0.279 0.037 260.031);
+    --color-bg-input: oklch(0.551 0.023 264.364);
+    --color-bg-card-front: oklch(0.372 0.039 257.287);
+    --color-bg-card-back: oklch(1 0 89.876);
+    --color-border-input: oklch(0.551 0.023 264.364);
+    --color-border-input-focus: oklch(0.872 0.009 258.338);
+    --color-border-card: oklch(0.446 0.037 257.281);
+    --color-text-title: oklch(0.696 0.149 162.48);
+    --color-text-heading: oklch(0.929 0.013 255.508);
+    --color-text-label: oklch(0.869 0.02 252.894);
+    --color-text-input: oklch(0.869 0.02 252.894);
+    --color-text-white: oklch(1 0 89.876);
+    --color-btn-primary: oklch(0.508 0.105 165.612);
+    --color-btn-primary-hover: oklch(0.596 0.127 163.225);
+    --color-btn-danger: oklch(0.577 0.215 27.325);
+    --color-btn-danger-hover: oklch(0.505 0.19 27.518);
+    --color-timer: oklch(0.773 0.153 163.223);
 }
 
 /* ── Reset & base ── */
 *, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 100vh;
-  background-color: var(--color-bg-page);
-  padding: 1rem;
-  font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    background-color: var(--color-bg-page);
+    padding: 3rem 1rem;
+    font-family: sans-serif;
 }
 
 /* ── Header ── */
 header h1 {
-  font-size: 2.25rem;
-  font-weight: 700;
-  color: var(--color-text-title);
-  text-align: center;
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--color-text-title);
+    text-align: center;
+    margin-bottom: 1.5rem;
 }
 
 /* ── Setup form panel ── */
 .setup-form {
-  margin-top: 1.5rem;
-  padding: 2rem;
-  background-color: var(--color-bg-panel);
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  width: 100%;
-  max-width: 56rem;
+    padding: 3rem;
+    background-color: var(--color-bg-panel);
+    border-radius: 1rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-width: 60rem;
 }
 
+.setup-form h1,
 .setup-form h2 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--color-text-heading);
-}
-.setup-form label {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--color-text-heading);
-}
-.setup-form h1 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--color-text-heading);
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-heading);
 }
 
-/* ── Form ── */
+/* ── Formulaire (CORRECTION DU DÉCALAGE BIZARRE) ── */
 .game-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+    display: block; /* Important : remplace flex pour gérer les marges une à une */
 }
 
+/* On cache les <br> de ton HTML pour que seul le CSS gère l'espacement */
+.game-form br {
+    display: none;
+}
+
+/* On donne exactement la même marge à tous les labels (questions) */
 .game-form label {
-  display: block;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--color-text-label);
-  margin-bottom: 0.25rem;
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-text-label);
+    margin-top: 2rem; /* Espace AVANT la question */
+    margin-bottom: 0.8rem; /* Espace APRÈS la question (entre le texte et la case) */
 }
 
-.game-form input,
+/* Cas spécial pour la toute première question (Player name) qui est écrite différemment dans le HTML */
+.game-form label[for="name"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem; /* Recrée le même espace "margin-bottom" que les autres */
+    margin-top: 0; /* On retire l'espace au-dessus, car c'est le tout premier champ ! */
+}
+
+/* ── Les gros blocs de texte (Inputs et Selects) ── */
+.game-form input[type="text"],
 .game-form select {
-  display: block;
-  width: 100%;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid var(--color-border-input);
-  border-radius: 0.375rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  color: var(--color-text-input);
-  background-color: var(--color-bg-input);
-  font-size: 0.875rem;
-  outline: none;
+    display: block;
+    width: 100%;
+    padding: 1.25rem 1.5rem;
+    border: 2px solid var(--color-border-input);
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: var(--color-text-input);
+    background-color: var(--color-bg-input);
+    font-size: 1.4rem;
+    outline: none;
+    cursor: pointer;
 }
 
-.game-form input:focus,
+.game-form input[type="text"]:focus,
 .game-form select:focus {
-  border-color: var(--color-border-input-focus);
-  box-shadow: 0 0 0 2px var(--color-border-input);
+    border-color: var(--color-border-input-focus);
+    box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.3);
 }
 
-.game-form button[type="submit"] {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 0.375rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--color-text-white);
-  background-color: var(--color-btn-primary);
-  cursor: pointer;
-  outline: none;
+/* ── Le bouton START ── */
+.game-form button[type="submit"],
+.game-form input[type="submit"] {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem; /* Espacement bien net avant le bouton */
+    padding: 1.5rem 2rem;
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    font-size: 1.75rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-text-white);
+    background-color: var(--color-btn-primary);
+    cursor: pointer;
+    outline: none;
+    transition: transform 0.2s, background-color 0.2s;
 }
 
-.game-form button[type="submit"]:hover {
-  background-color: var(--color-btn-primary-hover);
+.game-form button[type="submit"]:hover,
+.game-form input[type="submit"]:hover {
+    background-color: var(--color-btn-primary-hover);
+    transform: translateY(-2px);
 }
 
 /* ── Game area ── */
 .game-area {
-  width: 100%;
-  max-width: 56rem;
-  margin-top: 2rem;
+    width: 100%;
+    max-width: 60rem;
+    margin-top: 2rem;
 }
 
 .game-area-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 2.5rem;
 }
 
 .game-area-header h2 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--color-text-heading);
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color-text-heading);
 }
 
 #abandon {
-  padding: 0.5rem 1rem;
-  background-color: var(--color-btn-danger);
-  color: var(--color-text-white);
-  font-weight: 500;
-  border: none;
-  border-radius: 0.375rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  outline: none;
+    padding: 1rem 2rem;
+    background-color: var(--color-btn-danger);
+    color: var(--color-text-white);
+    font-size: 1.4rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    outline: none;
 }
 
 #abandon:hover {
-  background-color: var(--color-btn-danger-hover);
+    background-color: var(--color-btn-danger-hover);
 }
 
 #mute-btn {
-  padding: 0.5rem 1rem;
-  background-color: var(--color-bg-card-front);
-  color: var(--color-text-white);
-  font-weight: 500;
-  border: 1px solid var(--color-border-card);
-  border-radius: 0.375rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  outline: none;
-  font-size: 1.125rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    padding: 1rem 1.5rem;
+    background-color: var(--color-bg-card-front);
+    color: var(--color-text-white);
+    font-weight: bold;
+    border: 1px solid var(--color-border-card);
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    outline: none;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #mute-btn:hover {
-  background-color: var(--color-bg-card-back);
+    background-color: var(--color-bg-card-back);
 }
 
 .game-timer {
-  font-size: 1.125rem;
-  font-family: monospace;
-  color: var(--color-timer);
+    font-size: 2.8rem;
+    font-weight: bold;
+    font-family: monospace;
+    color: var(--color-timer);
+    background: rgba(0,0,0,0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
 }
 
 /* ── Game board (CSS Grid) ── */
 .game-board {
-  display: grid;
-  gap: 1rem;
-  justify-items: center;
-  grid-template-columns: repeat(4, 1fr);
-
+    display: grid;
+    gap: 1.5rem;
+    justify-items: center;
+    grid-template-columns: repeat(4, 1fr);
 }
 
 .game-board.cols-5 {
-  grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, 1fr);
 }
 
 /* ── Hidden utility ── */
 .hidden {
-  display: none !important;
+    display: none !important;
 }
 
 /* ── Cards ── */
 .card {
-  perspective: 1000px;
-  width: 8rem;
-  height: 8rem;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    perspective: 1000px;
+    width: 8rem;
+    height: 8rem;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
 }
 
 @media (min-width: 768px) {
-  .card {
-    width: 10rem;
-    height: 10rem;
-  }
+    .card {
+        width: 11rem;
+        height: 11rem;
+    }
 }
 
 .card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
 }
 
 .card.flip .card-inner {
-  transform: rotateY(180deg);
+    transform: rotateY(180deg);
 }
 
 .card-front,
 .card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 0.5rem;
-  overflow: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 0.5rem;
+    overflow: hidden;
 }
 
 .card-front {
-  background-color: var(--color-bg-card-front);
-  border: 2px solid var(--color-border-card);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    background-color: var(--color-bg-card-front);
+    border: 3px solid var(--color-border-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .card-back {
-  transform: rotateY(180deg);
-  background-color: var(--color-bg-card-back);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    transform: rotateY(180deg);
+    background-color: var(--color-bg-card-back);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .card-front img,
 .card-back img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 0.5rem;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.25rem;
 }
 
-/* ── Leaderboard Styles ── */
+/* ── Leaderboard Styles (Tableau Corrigé !) ── */
 .leaderboard-section {
-  margin-top: 2rem;
-  padding: 1.5rem;
-  background-color: var(--color-bg-panel);
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  width: 100%;
-  max-width: 56rem;
+    margin-top: 3rem;
+    padding: 3rem;
+    background-color: var(--color-bg-panel);
+    border-radius: 1rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-width: 60rem;
 }
 
 .leaderboard-section h2 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--color-text-title);
-  text-align: center;
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--color-text-title);
+    text-align: center;
 }
 
-.leaderboard-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 0.5rem;
-  font-size: 0.875rem;
-  color: var(--color-text-input);
+table, .leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.4rem;
+    color: var(--color-text-white);
+    background-color: var(--color-bg-input);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-.leaderboard-table th, 
-.leaderboard-table td {
-  padding: 0.75rem;
-  text-align: center;
-  border-bottom: 1px solid var(--color-border-card);
+table th, .leaderboard-table th,
+table td, .leaderboard-table td {
+    padding: 1.5rem;
+    text-align: center;
+    border-bottom: 2px solid var(--color-border-card);
 }
 
-.leaderboard-table th {
-  background-color: var(--color-bg-card-front);
-  color: var(--color-text-white);
-  font-weight: 600;
+table th, .leaderboard-table th {
+    background-color: var(--color-bg-card-front);
+    color: var(--color-text-title);
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
+
+table tr:last-child td {
+    border-bottom: none;
 }
 
 .row-win {
-  color: var(--color-text-title) !important;
-  font-weight: bold;
+    color: var(--color-text-title) !important;
+    font-weight: bold;
 }
 
 .row-fail {
-  color: var(--color-btn-danger) !important;
+    color: var(--color-btn-danger) !important;
+}
+
+/* ── Animations de succès et d'erreur (Cartes) ── */
+.card.success .card-back {
+    border: 4px solid #00ff00;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.9);
+    transition: all 0.3s ease;
+}
+
+.card.error .card-back {
+    border: 4px solid #ff0000;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.9);
+}
+
+.card.error {
+    animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-12px); }
+    75% { transform: translateX(12px); }
 }
